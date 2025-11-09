@@ -11,27 +11,29 @@ const createUser =(email,password)=>{
     setloading(true)
     return createUserWithEmailAndPassword(auth,email,password)
 }
-// const signInUser =(email,password)=>{
-//     setloading(true)
-//     return createUserWithEmailAndPassword(auth,email,password)
-// }
-// const signOutUser =() =>{
-//     setloading(true)
-//     return signOut(auth)
-// }
+const signInUser =(email,password)=>{
+    setloading(true)
+    return createUserWithEmailAndPassword(auth,email,password)
+}
+const signOutUser =() =>{
+    setloading(true)
+    return signOut(auth)
+}
 
-//  useEffect(() => {
-//         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-//             setUser(currentUser);
-//             setloading(false);
-//         })
-//         return () => {
-//             unsubscribe()
-//         }
-//     }, [])
+ useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            setUser(currentUser);
+            setloading(false);
+        })
+        return () => {
+            unsubscribe()
+        }
+    }, [])
 
 const authInfo={
 createUser,
+signInUser,
+signOutUser,
 user,
 loading,
 

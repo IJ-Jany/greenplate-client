@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { use } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { Link } from 'react-router';
 
 const Navbar = () => {
+  const {user,signOutUser} = use(AuthContext)
+  console.log(user)
     return (
        
 
@@ -28,11 +30,34 @@ const Navbar = () => {
     </ul>
   </div>
   <div className="navbar-end">
-  <div class="tooltip-container">
+{
+  user ?
+  <>
+    <div className="dropdown dropdown-end">
+      <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+        <div className="w-10 rounded-full">
+          <img
+            alt="Tailwind CSS Navbar component"
+            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"/>
+        </div>
+      </div>
+      <ul
+        tabIndex="-1"
+        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+        <Link to='/add-food'>Add Food</Link>
+        <Link to='/manage-foods'><a>Manage my Foods</a></Link>
+        <Link to='/my-requests'><a>my foods requests</a></Link>
+         <li><a>Logout</a></li>
+      </ul>
+    </div>
+  
+  </>:
+    <div class="tooltip-container">
   <div class="button-content">
     <Link class="text " to="/auth/login">Login</Link>
   </div>
 </div>
+}
   
   </div>
   {/* //<Link className="btn" to="/auth/login">Login</Link> */}

@@ -4,6 +4,10 @@ import Home from "../pages/home/Home";
 import Login from "../pages/login/Login";
 import Register from "../pages/register/Register";
 import Error from "../pages/error/Error";
+import AddFood from '../pages/add-food/AddFood'
+import ManageFoods from '../pages/manage-foods/ManageFoods'
+import MyRequestes from '../pages/my-requests/MyRequests'
+import FoodDetails from "../pages/fooddetails/FoodDetails";
 
 export const router = createBrowserRouter([
   {
@@ -14,7 +18,24 @@ export const router = createBrowserRouter([
         path:'/',
         Component:Home,
         loader:()=> fetch('http://localhost:3000/foods')
-    }
+    },
+    {
+      path:'/add-food',
+      Component:AddFood
+    },
+     {
+      path:'/manage-foods',
+      Component:ManageFoods
+    },
+     {
+      path:'/my-requests',
+      Component:MyRequestes
+    },
+     {
+      path:' /food-details',
+      Component:FoodDetails
+    },
+   
    ]
   },
   {

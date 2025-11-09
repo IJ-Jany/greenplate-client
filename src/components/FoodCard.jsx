@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 const FoodCard = ({food}) => {
     const{food_image, food_name, food_quantity, pickup_location, food_status } = food
@@ -16,6 +17,8 @@ const FoodCard = ({food}) => {
         <h1>{pickup_location}</h1>
         <h1>{food_quantity}</h1>
       <button className="btn btn-primary">{food_status}</button>
+
+       <Link to='/food-details'><a>View details</a></Link>
     </div>
   </div>
 </div>
