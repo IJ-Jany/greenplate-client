@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 
 const FoodCard = ({food}) => {
-    const{food_image, food_name, food_quantity, pickup_location, food_status } = food
+    const{_id,food_image, food_name, food_quantity, pickup_location, food_status } = food
     return (
         <div className="card bg-base-100 w-96 shadow-sm">
   <figure>
@@ -18,7 +18,7 @@ const FoodCard = ({food}) => {
         <h1>{food_quantity}</h1>
       <button className="btn btn-primary">{food_status}</button>
 
-       <Link to='/food-details'><a>View details</a></Link>
+       <Link to={`/food-details/${_id}`}><a>View details</a></Link>
     </div>
   </div>
 </div>

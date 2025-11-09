@@ -32,7 +32,7 @@ export const router = createBrowserRouter([
       Component:MyRequestes
     },
      {
-      path:' /food-details',
+      path:'/food-details/:id',
       Component:FoodDetails
     },
    
