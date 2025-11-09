@@ -1,20 +1,17 @@
 import React from 'react';
+import hungrybabyimg from '../assets/hungrybaby.png'
 
 const Banner = () => {
     return (
-       <div className="hero bg-base-200 min-h-screen">
-  <div className="hero-content flex-col lg:flex-row">
-    <img
-      src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
-      className="max-w-sm rounded-lg shadow-2xl"
-    />
+  <div className='flex items-center justify-between gap-6 py-8'>
     <div>
-      <h1 className="text-5xl font-bold">Box Office News!</h1>
-      <p className="py-6">
-        Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
-        quasi. In deleniti eaque aut repudiandae et a id nisi.
-      </p>
-     <label className="input">
+        <img src={hungrybabyimg} alt="" className="rounded-l-lg"/>
+    </div>
+    <div>
+        <h1 className='text-center font-bold text-2xl text-green-600'>Join Hands to End Hunger</h1>
+        <p className='text-gray-500 text-sm'>A small contribution can provide meals to those in need, and with the support of the UN World Food Programme, every donation reaches someone who counts. Let’s fight hunger together.</p>
+      <div className='pt-6 flex justify-center'>
+            <label className="input">
   <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
     <g
       strokeLinejoin="round"
@@ -29,9 +26,9 @@ const Banner = () => {
   </svg>
   <input type="search" required placeholder="Search" />
 </label>
+      </div>
     </div>
   </div>
-</div>
     );
 };
 

@@ -2,6 +2,8 @@ import React from 'react';
 import Banner from '../../components/Banner';
 import FoodCard from '../../components/FoodCard';
 import { Link, useLoaderData } from 'react-router';
+import HowWorks from '../../components/HowWorks';
+import OurMission from '../../components/OurMission';
 
 const Home = () => {
     const data = useLoaderData()
@@ -15,6 +17,8 @@ const Home = () => {
            }
             </div>
             <Link className='bg-blue-300'>all available foods</Link>
+            <HowWorks/>
+            <OurMission/>
         </div>
     );
 };

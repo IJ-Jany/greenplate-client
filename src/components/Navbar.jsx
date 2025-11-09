@@ -15,21 +15,29 @@ const Navbar = () => {
       <ul
         tabIndex="-1"
         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-        <li><a>Home</a></li>
-        <li><a>Available Foods</a></li>
+          <li className='hover:text-green-600'><Link>Home</Link></li>
+        <li className='hover:text-green-600'><Link>Available Foods</Link></li>
       </ul>
     </div>
-    <a className="btn btn-ghost text-xl">GreenPlate</a>
+    <a className="btn btn-ghost text-xl text-green-600">GreenPlate</a>
   </div>
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal px-1">
-   <li><a>Home</a></li>
-        <li><a>Available Foods</a></li>
+   <li className='hover:text-green-600'><Link>Home</Link></li>
+        <li className='hover:text-green-600'><Link>Available Foods</Link></li>
     </ul>
   </div>
   <div className="navbar-end">
-  <Link className="btn" to="/auth/login">Login</Link>
+  <div class="tooltip-container">
+  <div class="button-content">
+    <Link class="text " to="/auth/login">Login</Link>
   </div>
+</div>
+  
+  </div>
+  {/* //<Link className="btn" to="/auth/login">Login</Link> */}
+
+
 </div>
 
     );
