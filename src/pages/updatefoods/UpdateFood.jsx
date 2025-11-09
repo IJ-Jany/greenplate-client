@@ -1,10 +1,11 @@
-import React, { use } from 'react';
-import { AuthContext } from '../../context/AuthContext';
+import React from 'react';
+import { useLoaderData } from 'react-router';
 
-const AddFood = () => {
-    const{user} = use(AuthContext)
-    console.log(user)
-    const handleSubmit =(e)=>{
+const UpdateFood = () => {
+    const data = useLoaderData()
+    const food = data.result
+    console.log(food)
+     const handleUpdate =(e)=>{
         e.preventDefault()
         const formData = {
             food_name:e.target.name.value,
@@ -13,13 +14,9 @@ const AddFood = () => {
             pickup_location:e.target.location.value,
             expire_date:e.target.expireDate.value,
             additional_notes:e.target.notes.value,
-            food_status:"Available",
-            donator_name:user.displayName,
-            donator_email:user.email,
-            donator_image:user.photoURL
         }
-        fetch('http://localhost:3000/foods',{
-            method:"POST",
+        fetch(`http://localhost:3000/foods/${food._id}`,{
+            method:"PUT",
             headers:{
                 "Content-Type": "application/json"
             },
@@ -29,8 +26,8 @@ const AddFood = () => {
         .catch(err=> console.log(err))
     }
     return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
-      <form onSubmit={handleSubmit}
+        <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
+      <form onSubmit={handleUpdate}
         className="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg"
       >
         <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">
@@ -45,6 +42,7 @@ const AddFood = () => {
           <input
             type="text"
             name="name"
+            defaultValue={food.food_name}
             // value={formData.foodName}
             // onChange={handleChange}
            
@@ -61,6 +59,7 @@ const AddFood = () => {
           <input
             type="url"
             name="image"
+            defaultValue={food.food_image}
             // value={formData.foodImage}
             // onChange={handleChange}
             placeholder=""
@@ -78,6 +77,7 @@ const AddFood = () => {
           <input
             type="text"
             name="quantity"
+            defaultValue={food.food_quantity}
             // value={formData.quantity}
             // onChange={handleChange}
             placeholder=""
@@ -94,6 +94,7 @@ const AddFood = () => {
           <input
             type="text"
             name="location"
+            defaultValue={food.pickup_location}
             // value={formData.location}
             // onChange={handleChange}
             placeholder="Enter pickup address"
@@ -110,6 +111,7 @@ const AddFood = () => {
           <input
             type="date"
             name="expireDate"
+            defaultValue={food.expire_date}
             // value={formData.expireDate}
             // onChange={handleChange}
             required
@@ -124,6 +126,7 @@ const AddFood = () => {
           </label>
           <textarea
             name="notes"
+            defaultValue={food.additional_notes}
             // value={formData.notes}
             // onChange={handleChange}
             rows="4"
@@ -137,13 +140,11 @@ const AddFood = () => {
           type="submit"
           className="w-full bg-green-500 text-white font-semibold py-2 rounded-md hover:bg-green-600 transition duration-200"
         >
-          Submit
+        update
         </button>
       </form>
     </div>
-
-
     );
 };
 
-export default AddFood;
+export default UpdateFood;

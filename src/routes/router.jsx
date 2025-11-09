@@ -8,6 +8,8 @@ import AddFood from '../pages/add-food/AddFood'
 import ManageFoods from '../pages/manage-foods/ManageFoods'
 import MyRequestes from '../pages/my-requests/MyRequests'
 import FoodDetails from "../pages/fooddetails/FoodDetails";
+import UpdateFood from "../pages/updatefoods/UpdateFood";
+import DeleteFood from "../pages/deletefood/DeleteFood";
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +37,12 @@ export const router = createBrowserRouter([
       path:'/food-details/:id',
       Component:FoodDetails
     },
+     {
+      path:'/update-food/:id',
+      Component:UpdateFood,
+      loader:({params})=> fetch(`http://localhost:3000/foods/${params.id}`)
+    },
+
    
    ]
   },

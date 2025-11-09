@@ -1,5 +1,5 @@
 import React, { use, useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { Link, useParams } from 'react-router';
 import { AuthContext } from '../../context/AuthContext';
 
 const FoodDetails = () => {
@@ -23,6 +23,8 @@ const FoodDetails = () => {
           <h1>{food.food_name}</h1>
           <img src={food.food_image} alt="" />
           <p>{food.food_quantity}</p>
+          <Link to={`/update-food/${food._id}`}>Update</Link>
+<button>delete</button>
         </div>
     );
 };
