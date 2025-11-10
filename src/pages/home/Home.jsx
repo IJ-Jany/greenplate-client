@@ -11,12 +11,12 @@ const Home = () => {
     return (
         <div>
             <Banner/>
-            <div className='grid grid-cols-3 gap-3'>
+            <div className='py-10 grid grid-cols-3 gap-3 max-w-7xl mx-auto'>
            {
             data.map(food=> <FoodCard key={food._id} food={food}/>)
            }
             </div>
-            <Link className='bg-blue-300'>all available foods</Link>
+           <div className=' py-6 flex justify-center items-center'> <Link to='/available-foods' className='btn btn-primary hover:bg-purple-400'>Show All</Link></div>
             <HowWorks/>
             <OurMission/>
         </div>

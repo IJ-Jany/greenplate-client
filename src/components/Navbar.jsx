@@ -17,16 +17,19 @@ const Navbar = () => {
       <ul
         tabIndex="-1"
         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-          <li className='hover:text-green-600'><Link>Home</Link></li>
-        <li className='hover:text-green-600'><Link>Available Foods</Link></li>
+          <li className='hover:text-green-600'><Link to='/'>Home</Link></li>
+        <li className='hover:text-green-600'><Link to='/available-foods'>Available Foods</Link></li>
       </ul>
     </div>
-    <a className="btn btn-ghost text-xl text-green-600">GreenPlate</a>
+    <a className="btn btn-ghost text-3xl font-bold text-green-700 hover:text-green-800 transition-all duration-300">
+      <span className="text-green-600">🍃 Green</span>Plate
+    </a>
+    {/* <a className="btn btn-ghost text-xl text-green-600">GreenPlate</a> */}
   </div>
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal px-1">
-   <li className='hover:text-green-600'><Link>Home</Link></li>
-        <li className='hover:text-green-600'><Link>Available Foods</Link></li>
+   <li className='hover:text-green-600'><Link to='/'>Home</Link></li>
+        <li className='hover:text-green-600'><Link to='/available-foods'>Available Foods</Link></li>
     </ul>
   </div>
   <div className="navbar-end">
@@ -38,25 +41,23 @@ const Navbar = () => {
         <div className="w-10 rounded-full">
           <img
             alt="Tailwind CSS Navbar component"
-            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"/>
+            src={user.photoURL}/>
         </div>
       </div>
       <ul
         tabIndex="-1"
         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-        <Link to='/add-food'>Add Food</Link>
-        <Link to='/manage-foods'><a>Manage my Foods</a></Link>
-        <Link to='/my-requests'><a>my foods requests</a></Link>
-         <li><a>Logout</a></li>
+        <Link  className='hover:text-green-600' to='/add-food'>Add Food</Link>
+        <Link to='/manage-foods' className='hover:text-green-600' ><a>Manage My Foods</a></Link>
+        <Link className='hover:text-green-600' to='/my-requests'><a>my foods requests</a></Link>
+         <Link className='hover:text-green-600' onClick={signOutUser}>Logout</Link>
       </ul>
     </div>
   
   </>:
-    <div class="tooltip-container">
-  <div class="button-content">
-    <Link class="text " to="/auth/login">Login</Link>
-  </div>
-</div>
+  
+    <Link class="btn btn-primary hover:bg-purple-400 " to="/auth/login">Login</Link>
+
 }
   
   </div>

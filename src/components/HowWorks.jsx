@@ -4,7 +4,7 @@ import { FaUpload, FaSearch, FaHandHolding } from 'react-icons/fa';
 const HowWorks = () => {
   return (
     <section className="py-16 bg-green-50">
-      <div className="max-w-6xl mx-auto px-6 text-center">
+      <div className="max-w-7xl mx-auto px-6 text-center">
         <h2 className="text-3xl font-bold text-green-600 mb-8">How It Works</h2>
         <div className="flex flex-col md:flex-row justify-center gap-8">
           <div className="bg-white shadow-md rounded-lg p-6 flex flex-col items-center">

@@ -1,5 +1,7 @@
 import React, { use } from 'react';
 import { AuthContext } from '../../context/AuthContext';
+import { toast } from 'react-toastify';
+
 
 const AddFood = () => {
     const{user} = use(AuthContext)
@@ -25,7 +27,11 @@ const AddFood = () => {
             },
             body:JSON.stringify(formData)
         })
-        .then(res=> res.json())
+        .then(res=>  res.json() )
+        .then(data=>{
+          console.log(data)
+           toast.success("Added sucessfully")
+        })
         .catch(err=> console.log(err))
     }
     return (
@@ -135,7 +141,7 @@ const AddFood = () => {
         {/* Submit Button */}
         <button
           type="submit"
-          className="w-full bg-green-500 text-white font-semibold py-2 rounded-md hover:bg-green-600 transition duration-200"
+          className="w-full btn btn-primary hover:bg-purple-400 text-white font-semibold py-2 rounded-md  transition duration-200"
         >
           Submit
         </button>

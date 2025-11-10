@@ -12,7 +12,7 @@ const OurMission = () => {
 
       {/* Right Text Content */}
       <div className="md:w-1/2 w-full p-8 flex flex-col justify-center">
-        <h2 className="text-3xl font-bold text-green-700 mb-4">Our Mission</h2>
+        <h2 className="text-3xl font-bold text-green-600 mb-8">Our Mission</h2>
         <p className="text-gray-700 mb-6">
           At GreenPlate, we aim to reduce food waste and fight hunger simultaneously. 
           Every contribution brings a meal to someone in need, empowering communities worldwide.
