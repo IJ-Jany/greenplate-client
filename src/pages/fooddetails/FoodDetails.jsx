@@ -2,31 +2,41 @@ import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router";
 import { AuthContext } from "../../context/AuthContext";
 import { toast } from "react-toastify";
+import UpdateFood from "../updatefoods/UpdateFood";
 
 const FoodDetails = () => {
     const [ req,setReq] = useState([])
   const { id } = useParams();
   const { user } = useContext(AuthContext);
+
   const [food, setFood] = useState({});
   const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
+    useEffect(() => {
     fetch(`http://localhost:3000/foods/${id}`)
       .then((res) => res.json())
       .then((data) => setFood(data.result))
       .catch((err) => console.log(err));
   }, [id]);
 
-   useEffect(() => {
+
+     useEffect(() => {
+     // if ( user.email !== food.donator_email) return;
     fetch(`http://localhost:3000/requests?food_id=${id}`)
       .then((res) => res.json())
       .then((data) => setReq(data))
       .catch((err) => console.log(err));
-  }, [food]);
+  }, []);
+
+
+
 
   const handleSubmit =(e)=>{
         e.preventDefault()
         const formData = {
+            req_email:user.email,
+            req_name:user.displayName,
+            req_photo:user.photoURL,
             req_location:e.target.location.value,
             req_reason:e.target.reason.value,
             req_contact:e.target.contact.value,
@@ -49,30 +59,36 @@ const FoodDetails = () => {
             }
 
            const handleRequest = (requestId, action) => {
-  fetch(`http://localhost:3000/requests/${requestId}`, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ status: action }), 
-  })
-    .then(res => res.json())
-    .then(data => {
-        console.log(data)
-      toast.success(`Request ${action}`);
-      setReq(prev => 
-        prev.map(r => r._id === requestId ? { ...r, status: action } : r)
-      );
+                  fetch(`http://localhost:3000/requests/${requestId}`, {
+                    method: "PATCH",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ status: action }), 
+                  })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data)
+                      toast.success("Request added");
+                     const newReq = req.map(r => 
+    r._id === requestId ? { ...r, status: action } : r
+);
+setReq(newReq);
       if (action === "Accepted") {
         fetch(`http://localhost:3000/foods/${food._id}/status`, {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ food_status: "Donated" }),
+          body: JSON.stringify ({ food_status: "Donated" }),
         })
-          .then(res => res.json())
-          .then(() => setFood(prev => ({ ...prev, food_status: "Donated" })));
-      }
+          .then(() =>
+          {
+             const updatedFood = {...food,food_status:"Donated"}
+          setFood(updatedFood)
+     
     })
     .catch(err => console.log(err));
 };
+                    })
+                     .catch(err => console.log(err));
+                  }
 
 
   return (
@@ -172,7 +188,7 @@ const FoodDetails = () => {
 
       {/* //requests table for foodss------------- */}
 
-  <div className="mt-8">
+ <div className="mt-8">
     <h2 className="text-xl font-bold mb-4">Food Requests</h2>
     <table className="table-auto w-full border">
       <thead>
@@ -185,26 +201,27 @@ const FoodDetails = () => {
           <th className="px-4 py-2">Actions</th>
         </tr>
       </thead>
-      <tbody>
+ <tbody>
         {req.map(req => (
           <tr key={req._id} className="border-t">
-            <td className="px-4 py-2">{req.user_name}</td>
+            <td className="px-4 py-2">{req.
+req_name}</td>
             <td className="px-4 py-2">{req.req_contact}</td>
             <td className="px-4 py-2">{req.req_location}</td>
             <td className="px-4 py-2">{req.req_reason}</td>
-            <td className="px-4 py-2">{req.status}</td>
+            <td className="px-4 py-2">{req.food_status}</td>
             <td className="px-4 py-2 flex gap-2">
-              {req.status === "Pending" && (
+              {req.food_status === "Pending" && (
                 <>
                   <button
                     onClick={() => handleRequest(req._id, "Accepted")}
-                    className="btn btn-sm btn-success"
+                    className="btn btn-primary hover:bg-purple-400"
                   >
                     Accept
-                  </button>
+                      </button>
                   <button
                     onClick={() => handleRequest(req._id, "Rejected")}
-                    className="btn btn-sm btn-error"
+                    className="btn btn-primary hover:bg-purple-400"
                   >
                     Reject
                   </button>

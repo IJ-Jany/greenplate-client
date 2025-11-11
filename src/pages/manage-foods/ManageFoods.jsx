@@ -1,5 +1,5 @@
 import React, { use, useEffect, useState } from 'react';
-import { useLoaderData, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import Swal from "sweetalert2";
 import { AuthContext } from '../../context/AuthContext';
 
@@ -50,19 +50,19 @@ const ManageFoods = () => {
         });
             }
     return (
-  <div className="p-6">
+  <div className="p-4 md:p-8 max-w-7xl mx-auto">
       <h2 className="text-2xl font-bold mb-4 text-center">Manage All Foods</h2>
 
-      <div className="overflow-x-auto rounded-lg shadow-md bg-white">
-        <table className="min-w-full text-sm text-left">
+      <div className="overflow-x-auto  rounded-lg shadow-md bg-white">
+        <table className="min-w-full text-sm text-left border-collapse">
           <thead className="bg-gray-100 text-gray-700 uppercase text-sm">
             <tr>
-              <th className="px-6 py-3">Image</th>
-              <th className="px-6 py-3">Food Name</th>
-              <th className="px-6 py-3">Quantity</th>
-              <th className="px-6 py-3">Pickup Location</th>
-              <th className="px-6 py-3">Expire Date</th>
-              <th className="px-6 py-3 text-center">Actions</th>
+              <th className="px-4 md:px-6 py-3">Image</th>
+              <th className="px-4 md:px-6 py-3">Food Name</th>
+              <th className="px-4 md:px-6 py-3">Quantity</th>
+              <th className="px-4 md:px-6 py-3">Pickup Location</th>
+              <th className="px-4 md:px-6 py-3">Expire Date</th>
+              <th className="px-4 md:px-6 py-3 text-center">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -73,7 +73,7 @@ const ManageFoods = () => {
               >
                 <td className="px-6 py-3">
                   <img
-                    src={food.image || "https://via.placeholder.com/60"}
+                    src={food.food_image }
                     alt={food.food_name}
                     className="w-14 h-14 rounded object-cover"
                   />
@@ -83,7 +83,7 @@ const ManageFoods = () => {
                 <td className="px-6 py-3">{food.pickup_location}</td>
                 <td className="px-6 py-3">{food.expire_date}</td>
                 <td className="px-6 py-3 text-center">
-                  <div className="flex justify-center gap-2">
+                  <div className="flex flex-col sm:flex-row justify-center gap-2">
                     <button onClick={() => handleDelete(food._id)} className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">
                       Delete
                     </button>

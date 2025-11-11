@@ -4,6 +4,8 @@ import { Link } from 'react-router';
 const FoodCard = ({food}) => {
   
     const{_id,food_image,additional_notes,donator_image, food_name,expire_date, food_quantity, pickup_location, food_status, donator_email} = food
+
+    
     return (
 <div className="card bg-base-100 w-full max-w-sm shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
 
@@ -30,7 +32,7 @@ const FoodCard = ({food}) => {
       <div className="flex flex-col gap-2 items-end">
         <button className='btn btn-primary hover:bg-purple-400'>  {food_status}</button>
        
- <Link to={`/update-food/${_id}`} className="btn btn-outline btn-sm border-purple-600 text-purple-700 hover:bg-purple-100" >  Update </Link>
+ {/* <Link to={`/update-food/${_id}`} className="btn btn-outline btn-sm border-purple-600 text-purple-700 hover:bg-purple-100" >  Update </Link> */}
                 <Link to={`/food-details/${_id}`} className="text-sm text-purple-700 hover:underline" >  View details </Link>
         
         
