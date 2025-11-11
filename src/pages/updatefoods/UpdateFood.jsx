@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLoaderData } from 'react-router';
+import { toast } from 'react-toastify';
 
 const UpdateFood = () => {
     const data = useLoaderData()
@@ -25,6 +26,10 @@ const UpdateFood = () => {
             body:JSON.stringify(formData)
         })
         .then(res=> res.json())
+        .then(data=>{
+                  console.log(data)
+                   toast.success("update sucessfully")
+                })
         .catch(err=> console.log(err))
     }
     return (

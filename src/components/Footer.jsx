@@ -2,20 +2,19 @@ import React from 'react';
 
 const Footer = () => {
     return (
-<footer className="footer footer-center bg-gradient-to-r from-green-50 to-green-100 text-base-content p-10 border-t border-green-200">
-  <div>
-    <a className="btn btn-ghost text-3xl font-bold text-green-700 hover:text-green-800 transition-all duration-300">
-      <span className="text-green-600">🍃 Green</span>Plate
-    </a>
+<footer className=" bg-gradient-to-r from-green-50 to-green-100  p-10 border-t border-green-200">
+<div className='flex flex-col md:flex-row justify-center gap-6 items-center'>
+      <div>
+    <h1 className='text-3xl font-bold text-green-700'> <span className="text-green-600">🍃 Green</span>Plate</h1>
     <p className="text-sm text-gray-600 mt-2">Savor Sustainability. Share Goodness.</p>
   </div>
 
-  <nav className="grid grid-flow-col gap-6 text-gray-700 font-medium">
+  <div className="flex gap-6 ">
     <a className="link link-hover hover:text-green-700 ">About Us</a>
     <a className="link link-hover hover:text-green-700 ">Contact</a>
     <a className="link link-hover hover:text-green-700 ">Foods</a>
     <a className="link link-hover hover:text-green-700 ">Donates</a>
-  </nav>
+  </div>
 
   <div className="flex gap-6 mt-4">
     {/* Facebook */}
@@ -59,11 +58,12 @@ const Footer = () => {
     </a>
   </div>
 
-  <aside className="mt-4">
+  <div className="mt-4">
     <p className="text-gray-500 text-sm">
-      © {new Date().getFullYear()} — All rights reserved by <span className="text-green-600 font-semibold">Israt Jaman</span>
+      2025 — All rights reserved by <span className="text-green-600 font-semibold">Israt Jaman</span>
     </p>
-  </aside>
+  </div>
+</div>
 </footer>
 
     );

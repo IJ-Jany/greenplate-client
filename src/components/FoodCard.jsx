@@ -18,6 +18,9 @@ const FoodCard = ({food}) => {
         src={donator_image} className="w-10 h-10 rounded-full border border-gray-200 object-cover"/>
       <div><p className="text-sm font-medium text-gray-700">{donator_email}</p></div>
     </div>
+
+
+
     <div className="mt-auto flex flex-wrap justify-between items-center gap-3 text-sm">
       <div className="flex flex-col gap-1">
         <span><strong>Pickup:</strong> {pickup_location}</span>
@@ -26,9 +29,17 @@ const FoodCard = ({food}) => {
       </div>
       <div className="flex flex-col gap-2 items-end">
         <button className='btn btn-primary hover:bg-purple-400'>  {food_status}</button>
-        <Link to={`/food-details/${_id}`} className="text-sm text-purple-700 hover:underline" >  View details </Link>
+       
+ <Link to={`/update-food/${_id}`} className="btn btn-outline btn-sm border-purple-600 text-purple-700 hover:bg-purple-100" >  Update </Link>
+                <Link to={`/food-details/${_id}`} className="text-sm text-purple-700 hover:underline" >  View details </Link>
+        
+        
+    
       </div>
     </div>
+
+
+
   </div>
 </div>
 

@@ -1,9 +1,14 @@
 import React, { use } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { Link } from 'react-router';
+import { Link,NavLink } from 'react-router';
 
 const Navbar = () => {
   const {user,signOutUser} = use(AuthContext)
+  const activeClass =({isActive})=>{
+    isActive
+     ? "text-green-700 font-semibold border-b-2 border-green-600"
+      : "hover:text-green-600 transition-all duration-300";
+  }
   console.log(user)
     return (
        
@@ -17,8 +22,8 @@ const Navbar = () => {
       <ul
         tabIndex="-1"
         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-          <li className='hover:text-green-600'><Link to='/'>Home</Link></li>
-        <li className='hover:text-green-600'><Link to='/available-foods'>Available Foods</Link></li>
+          <li className='hover:text-green-600'><Link className='activeClass' to='/'>Home</Link></li>
+        <li className='hover:text-green-600'><Link className='activeClass' to='/available-foods'>Available Foods</Link></li>
       </ul>
     </div>
     <a className="btn btn-ghost text-3xl font-bold text-green-700 hover:text-green-800 transition-all duration-300">
@@ -28,8 +33,8 @@ const Navbar = () => {
   </div>
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal px-1">
-   <li className='hover:text-green-600'><Link to='/'>Home</Link></li>
-        <li className='hover:text-green-600'><Link to='/available-foods'>Available Foods</Link></li>
+   <li className='hover:text-green-600'><Link className='activeClass' to='/'>Home</Link></li>
+        <li className='hover:text-green-600'><Link className='activeClass' to='/available-foods'>Available Foods</Link></li>
     </ul>
   </div>
   <div className="navbar-end">
@@ -50,7 +55,7 @@ const Navbar = () => {
         <Link  className='hover:text-green-600' to='/add-food'>Add Food</Link>
         <Link to='/manage-foods' className='hover:text-green-600' ><a>Manage My Foods</a></Link>
         <Link className='hover:text-green-600' to='/my-requests'><a>my foods requests</a></Link>
-         <Link className='hover:text-green-600' onClick={signOutUser}>Logout</Link>
+         <Link className='btn btn-primary hover:bg-purple-400 hover:text-green-600 py-3 px-4 mt-4' onClick={signOutUser}>Logout</Link>
       </ul>
     </div>
   

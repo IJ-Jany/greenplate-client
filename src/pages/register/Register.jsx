@@ -5,15 +5,15 @@ import { AuthContext } from '../../context/AuthContext';
 import { toast, ToastContainer } from 'react-toastify';
 
 const Register = () => {
-    const {createUser} = useContext(AuthContext)
+    const {createUser, updateUserProfile} = useContext(AuthContext)
     const navigate = useNavigate()
    const handleRegister = (e) => {
   e.preventDefault();
 
-  const email = e.target.elements.email?.value.trim() || "";
-  const password = e.target.elements.password?.value.trim() || "";
- // const name = e.target.elements.name?.value.trim() || "";
- // const photo = e.target.elements.photo?.value.trim() || "";
+  const email = e.target.email.value;
+  const password = e.target.password.value
+  const displayName = e.target.name.value
+  const photoURL = e.target.photoURL.value;
 
   // Password: at least one lowercase, one uppercase, one digit, one special (any non-alphanumeric), min length 6
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/
@@ -33,12 +33,13 @@ const Register = () => {
   createUser(email, password)
     .then((result) => {
       console.log(result);
+      updateUserProfile(displayName,photoURL)
       toast.success("Registration Successful");
-      navigate("/");
+      setTimeout(() => navigate("/"), 1500)
     })
     .catch((error) => {
       console.error(error);
-      toast.error(error.message || "Registration failed");
+      toast.error( "Registration failed");
     });
 };
     return (
@@ -54,7 +55,7 @@ const Register = () => {
           <label className="label">Email</label>
           <input name='email' type="email" className="input" placeholder="Email" />
          <label className="label">PhotoURL</label>
-          <input name='photo' type="text" className="input" placeholder="Place Your PhotoURL" />
+          <input name='photoURL' type="text" className="input" placeholder="Place Your PhotoURL" />
           <label className="label">Password</label>
           <input name='password' type="password" className="input" placeholder="Password" />
           <button  className='btn btn-primary hover:bg-purple-400'>Register</button>
