@@ -5,6 +5,8 @@ const UpdateFood = () => {
     const data = useLoaderData()
     const food = data.result
     console.log(food)
+
+    
      const handleUpdate =(e)=>{
         e.preventDefault()
         const formData = {

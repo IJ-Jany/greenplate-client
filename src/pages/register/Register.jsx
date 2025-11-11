@@ -2,7 +2,7 @@ import React, { use, useContext } from 'react';
 import { Link } from 'react-router';
 import { useNavigate } from "react-router";
 import { AuthContext } from '../../context/AuthContext';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 
 const Register = () => {
     const {createUser} = useContext(AuthContext)
@@ -16,7 +16,7 @@ const Register = () => {
  // const photo = e.target.elements.photo?.value.trim() || "";
 
   // Password: at least one lowercase, one uppercase, one digit, one special (any non-alphanumeric), min length 6
-  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{6,}$/;
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/
 
   if (!password) {
     toast.error("Please enter a password.");
@@ -67,7 +67,9 @@ const Register = () => {
        </form>
       </div>
     </div>
+    <ToastContainer/>
 </div>
+
     );
 };
 

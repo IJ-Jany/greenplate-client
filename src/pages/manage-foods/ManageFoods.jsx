@@ -1,10 +1,54 @@
-import React from 'react';
-import { useLoaderData } from 'react-router';
-import MyFoodCard from '../../components/MyFoodCard';
+import React, { use, useEffect, useState } from 'react';
+import { useLoaderData, useNavigate } from 'react-router';
+import Swal from "sweetalert2";
+import { AuthContext } from '../../context/AuthContext';
 
 const ManageFoods = () => {
-     const data = useLoaderData()
-    console.log(data)
+  const {user} = use(AuthContext)
+    //  const data = useLoaderData()
+    const[data,setData] = useState([])
+     const [foods,setFoods] = useState(data)
+     useEffect(()=>{
+    if(user){
+      fetch(`http://localhost:3000/my-foods?email=${user.email}`)
+      .then(res=>res.json())
+      .then(data=>setData(data))
+    }
+     },[user])
+ 
+   const navigate=useNavigate()
+          const handleDelete =(id)=>{
+                Swal.fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+          if (result.isConfirmed) {
+              fetch(`http://localhost:3000/foods/${id}`,{
+                    method:"DELETE",
+                })
+                .then(res=> res.json())
+                .then(data=>{
+                      if (data.success) {
+              setFoods(foods.filter((f) => f._id !== id));
+            }
+                    navigate("/")
+                    console.log(data)
+                     Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success"
+            });
+                })
+                .catch(err=> console.log(err))
+           
+          }
+        });
+            }
     return (
   <div className="p-6">
       <h2 className="text-2xl font-bold mb-4 text-center">Manage All Foods</h2>
@@ -40,10 +84,10 @@ const ManageFoods = () => {
                 <td className="px-6 py-3">{food.expire_date}</td>
                 <td className="px-6 py-3 text-center">
                   <div className="flex justify-center gap-2">
-                    <button className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">
+                    <button onClick={() => handleDelete(food._id)} className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">
                       Delete
                     </button>
-                    <button className="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded">
+                    <button onClick={() => navigate(`/update-food/${food._id}`)} className="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded">
                       Update
                     </button>
                   </div>

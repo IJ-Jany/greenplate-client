@@ -20,6 +20,7 @@ const AddFood = () => {
             donator_email:user.email,
             donator_image:user.photoURL
         }
+        console.log(formData)
         fetch('http://localhost:3000/foods',{
             method:"POST",
             headers:{

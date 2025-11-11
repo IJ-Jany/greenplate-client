@@ -12,6 +12,7 @@ import UpdateFood from "../pages/updatefoods/UpdateFood";
 import PrivateRoute from "./PrivateRoute";
 import AvailableFoods from "../pages/available-foods/AvailableFoods";
 
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -34,7 +35,7 @@ export const router = createBrowserRouter([
     {
       path:'/manage-foods',
       element:<PrivateRoute><ManageFoods></ManageFoods></PrivateRoute>,
-      loader:()=> fetch('http://localhost:3000/my-foods')
+     // loader:()=> fetch('http://localhost:3000/my-foods')
     },
      {
       path:'/my-requests',
@@ -43,17 +44,15 @@ export const router = createBrowserRouter([
      {
       path:'/food-details/:id',
       element:<PrivateRoute><FoodDetails></FoodDetails></PrivateRoute>,
-      loader:({params})=> fetch(`http://localhost:3000/foods/${params.id}`,{
-        headers:{
-          authorization:"hello"
-        }
-      })
+      loader:({params})=> fetch(`http://localhost:3000/foods/${params.id}`)
     },
+   
      {
       path:'/update-food/:id',
       element:<PrivateRoute><UpdateFood></UpdateFood></PrivateRoute>,
       loader:({params})=> fetch(`http://localhost:3000/foods/${params.id}`)
     },
+   
 
    
    ]
