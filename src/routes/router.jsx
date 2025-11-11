@@ -11,6 +11,7 @@ import FoodDetails from "../pages/fooddetails/FoodDetails";
 import UpdateFood from "../pages/updatefoods/UpdateFood";
 import PrivateRoute from "./PrivateRoute";
 import AvailableFoods from "../pages/available-foods/AvailableFoods";
+import Motion from "../components/Motion";
 
 
 export const router = createBrowserRouter([
@@ -53,7 +54,10 @@ export const router = createBrowserRouter([
       loader:({params})=> fetch(`http://localhost:3000/foods/${params.id}`)
     },
    
-
+     {
+        Component:Motion,
+       loader:()=> fetch('http://localhost:3000/foods')
+    },
    
    ]
   },
