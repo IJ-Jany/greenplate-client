@@ -17,7 +17,7 @@ const Footer = () => {
   </div>
 
   <div className="flex gap-6 mt-4">
-    {/* Facebook */}
+   
     <a
       href="https://www.facebook.com/yourprofile"
       target="_blank"
@@ -30,7 +30,7 @@ const Footer = () => {
       </svg>
     </a>
 
-    {/* X (Twitter new logo) */}
+ 
     <a
       href="https://twitter.com/yourprofile"
       target="_blank"
@@ -44,7 +44,6 @@ const Footer = () => {
       </svg>
     </a>
 
-    {/* YouTube */}
     <a
       href="https://www.youtube.com/@yourchannel"
       target="_blank"

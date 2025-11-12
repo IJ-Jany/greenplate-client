@@ -1,9 +1,12 @@
-import React, { use } from 'react';
+import React, { use, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { toast } from 'react-toastify';
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css"; 
 
 
 const AddFood = () => {
+  const [selectedDate, setSelectedDate] = useState(null);
     const{user} = use(AuthContext)
     console.log(user)
     const handleSubmit =(e)=>{
@@ -13,7 +16,8 @@ const AddFood = () => {
             food_image:e.target.image.value,
             food_quantity:e.target.quantity.value,
             pickup_location:e.target.location.value,
-            expire_date:e.target.expireDate.value,
+            // expire_date:e.target.expireDate.value,
+              expire_date: selectedDate ? selectedDate.toISOString().split("T")[0] : "",
             additional_notes:e.target.notes.value,
             food_status:"Available",
             donator_name:user.displayName,
@@ -110,7 +114,7 @@ const AddFood = () => {
         </div>
 
         {/* Expire Date */}
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <label className="block text-gray-700 font-medium mb-2">
             Expire Date
           </label>
@@ -120,6 +124,18 @@ const AddFood = () => {
             // value={formData.expireDate}
             // onChange={handleChange}
             required
+            className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-green-400 focus:outline-none"
+          />
+        </div> */}
+           <div className="mb-4">
+          <label className="block text-gray-700 font-medium mb-2">
+            Expire Date
+          </label>
+          <DatePicker
+            selected={selectedDate}
+            onChange={(date) => setSelectedDate(date)}
+            dateFormat="yyyy-MM-dd"
+            placeholderText="Select expiry date"
             className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-green-400 focus:outline-none"
           />
         </div>

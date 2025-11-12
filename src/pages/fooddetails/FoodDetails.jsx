@@ -11,7 +11,7 @@ const FoodDetails = () => {
   const { user, loading } = useContext(AuthContext);
   const [food, setFood] = useState({});
   const [isOpen, setIsOpen] = useState(false);
-  const [accept, setacceppt] = useState("Accept");
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -73,7 +73,7 @@ const FoodDetails = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        toast.success("Request updated");
+        toast.success(`Request ${step} successfully`);
         const newReq = req.map((r) =>
           r._id === reqid ? { ...r, food_status: step } : r
         );
@@ -85,7 +85,7 @@ const FoodDetails = () => {
             body: JSON.stringify({ food_status: "Donated" }),
           })
             .then(() => {
-              setacceppt("Accepted");
+             
               setFood((prev) => ({ ...prev, food_status: "Donated" }));
             })
             .catch((err) => console.log(err));
@@ -219,7 +219,7 @@ const FoodDetails = () => {
                         onClick={() => handleRequest(req._id, "Accepted")}
                         className="btn btn-primary hover:bg-purple-400"
                       >
-                        {accept}
+                        Accept
                       </button>
                       <button
                         onClick={() => handleRequest(req._id, "Rejected")}
@@ -229,6 +229,14 @@ const FoodDetails = () => {
                       </button>
                     </>
                   )}
+
+                 {req.food_status === "Accepted" && (
+  <span className="text-green-600 font-semibold">Accepted</span>
+)}
+{req.food_status === "Rejected" && (
+  <span className="text-red-600 font-semibold">Rejected</span>
+)}
+
                 </td>
               </tr>
             ))}
