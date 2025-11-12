@@ -2,9 +2,10 @@ import React, { use, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import Swal from "sweetalert2";
 import { AuthContext } from '../../context/AuthContext';
+import Loader from '../../components/Loader';
 
 const ManageFoods = () => {
-  const {user} = use(AuthContext)
+  const {user,loading} = use(AuthContext)
     //  const data = useLoaderData()
     const[data,setData] = useState([])
      const [foods,setFoods] = useState(data)
@@ -15,7 +16,8 @@ const ManageFoods = () => {
       .then(data=>setData(data))
     }
      },[user])
- 
+
+
    const navigate=useNavigate()
           const handleDelete =(id)=>{
                 Swal.fire({
@@ -37,18 +39,25 @@ const ManageFoods = () => {
               setFoods(foods.filter((f) => f._id !== id));
             }
                     navigate("/")
-                    console.log(data)
+                    //console.log(data)
                      Swal.fire({
               title: "Deleted!",
               text: "Your file has been deleted.",
               icon: "success"
             });
                 })
-                .catch(err=> console.log(err))
+                .catch(err=> 
+                  console.log(err)
+                )
            
           }
         });
             }
+
+if(loading){
+  return <Loader/>
+}
+ 
     return (
   <div className="p-4 md:p-8 max-w-7xl mx-auto">
       <h2 className="text-2xl font-bold mb-4 text-center">Manage All Foods</h2>

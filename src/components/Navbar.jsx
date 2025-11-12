@@ -4,12 +4,7 @@ import { Link,NavLink } from 'react-router';
 
 const Navbar = () => {
   const {user,signOutUser} = use(AuthContext)
-  const activeClass =({isActive})=>{
-    isActive
-     ? "text-green-700 font-semibold border-b-2 border-green-600"
-      : "hover:text-green-600 transition-all duration-300";
-  }
-  console.log(user)
+
     return (
        
 
@@ -53,15 +48,15 @@ const Navbar = () => {
         tabIndex="-1"
         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
         <Link  className='hover:text-green-600' to='/add-food'>Add Food</Link>
-        <Link to='/manage-foods' className='hover:text-green-600' ><a>Manage My Foods</a></Link>
-        <Link className='hover:text-green-600' to='/my-requests'><a>my foods requests</a></Link>
+        <Link to='/manage-foods' className='hover:text-green-600' >Manage My Foods</Link>
+        <Link className='hover:text-green-600' to='/my-requests'>My foods requests</Link>
          <Link className='btn btn-primary hover:bg-purple-400 hover:text-green-600 py-3 px-4 mt-4' onClick={signOutUser}>Logout</Link>
       </ul>
     </div>
   
   </>:
   
-    <Link class="btn btn-primary hover:bg-purple-400 " to="/auth/login">Login</Link>
+    <Link className="btn btn-primary hover:bg-purple-400 " to="/auth/login">Login</Link>
 
 }
   

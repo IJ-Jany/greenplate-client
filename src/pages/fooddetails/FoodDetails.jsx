@@ -3,93 +3,100 @@ import { useParams } from "react-router";
 import { AuthContext } from "../../context/AuthContext";
 import { toast } from "react-toastify";
 import UpdateFood from "../updatefoods/UpdateFood";
+import Loader from "../../components/Loader";
 
 const FoodDetails = () => {
-    const [ req,setReq] = useState([])
+  const [req, setReq] = useState([]);
   const { id } = useParams();
-  const { user } = useContext(AuthContext);
-
+  const { user, loading } = useContext(AuthContext);
   const [food, setFood] = useState({});
   const [isOpen, setIsOpen] = useState(false);
+  const [accept, setacceppt] = useState("Accept");
 
-    useEffect(() => {
-    fetch(`http://localhost:3000/foods/${id}`)
-      .then((res) => res.json())
-      .then((data) => setFood(data.result))
-      .catch((err) => console.log(err));
-  }, [id]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res1 = await fetch(`http://localhost:3000/foods/${id}`);
+        const foodData = await res1.json();
+        setFood(foodData.result);
 
-
-     useEffect(() => {
-     // if ( user.email !== food.donator_email) return;
-    fetch(`http://localhost:3000/requests?food_id=${id}`)
-      .then((res) => res.json())
-      .then((data) => setReq(data))
-      .catch((err) => console.log(err));
-  }, []);
-
-
-
-
-  const handleSubmit =(e)=>{
-        e.preventDefault()
-        const formData = {
-            req_email:user.email,
-            req_name:user.displayName,
-            req_photo:user.photoURL,
-            req_location:e.target.location.value,
-            req_reason:e.target.reason.value,
-            req_contact:e.target.contact.value,
-            food_id: food._id,
-            food_status:"Pending",
+        if (user.email === foodData.result?.donator_email) {
+          const res2 = await fetch(
+            `http://localhost:3000/requests?food_id=${id}&&email=${user.email}`
+          );
+          const reqData = await res2.json();
+          setReq(reqData);
         }
-           fetch('http://localhost:3000/requests',{
-                    method:"POST",
-                    headers:{
-                        "Content-Type": "application/json"
-                    },
-                    body:JSON.stringify(formData)
-                })
-                .then(res=>  res.json() )
-                .then(data=>{
-                  console.log(data)
-                   toast.success("Requested sucessfully")
-                })
-                .catch(err=> console.log(err))
-            }
+      } catch (err) {
+      
+        console.error(err);
+      }
+    };
+    fetchData();
+  }, [id, user.email]);
 
-           const handleRequest = (requestId, action) => {
-                  fetch(`http://localhost:3000/requests/${requestId}`, {
-                    method: "PATCH",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ status: action }), 
-                  })
-                    .then(res => res.json())
-                    .then(data => {
-                        console.log(data)
-                      toast.success("Request added");
-                     const newReq = req.map(r => 
-    r._id === requestId ? { ...r, status: action } : r
-);
-setReq(newReq);
-      if (action === "Accepted") {
-        fetch(`http://localhost:3000/foods/${food._id}/status`, {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify ({ food_status: "Donated" }),
-        })
-          .then(() =>
-          {
-             const updatedFood = {...food,food_status:"Donated"}
-          setFood(updatedFood)
-     
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = {
+      req_email: user.email,
+      req_name: user.displayName,
+      req_photo: user.photoURL,
+      req_location: e.target.location.value,
+      req_reason: e.target.reason.value,
+      req_contact: e.target.contact.value,
+      food_id: food._id,
+      food_status: "Pending",
+    };
+    fetch("http://localhost:3000/requests", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
     })
-    .catch(err => console.log(err));
-};
-                    })
-                     .catch(err => console.log(err));
-                  }
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        toast.success("Requested successfully");
+      })
+      .catch((err) => 
+        console.log(err)
+        );
+  };
 
+  const handleRequest = (reqid, step) => {
+    fetch(`http://localhost:3000/requests/${reqid}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ food_status: step }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        toast.success("Request updated");
+        const newReq = req.map((r) =>
+          r._id === reqid ? { ...r, food_status: step } : r
+        );
+        setReq(newReq);
+        if (step === "Accepted") {
+          fetch(`http://localhost:3000/foods/${food._id}/status`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ food_status: "Donated" }),
+          })
+            .then(() => {
+              setacceppt("Accepted");
+              setFood((prev) => ({ ...prev, food_status: "Donated" }));
+            })
+            .catch((err) => console.log(err));
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className="max-w-2xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden mt-10">
@@ -110,7 +117,6 @@ setReq(newReq);
         </h1>
         <p className="text-gray-600 mb-4">{food.additional_notes}</p>
 
-        {/* Donor Info */}
         <div className="flex items-center gap-4 border-t pt-4">
           <img
             src={food.donator_image}
@@ -118,12 +124,13 @@ setReq(newReq);
             className="w-12 h-12 rounded-full object-cover border"
           />
           <div>
-            <h3 className="font-semibold text-gray-800">{food.donator_name}</h3>
+            <h3 className="font-semibold text-gray-800">
+              {food.donator_name}
+            </h3>
             <p className="text-sm text-gray-500">{food.donator_email}</p>
           </div>
         </div>
 
-        {/* Request Food Button */}
         <div className="mt-6 flex justify-between">
           <button
             onClick={() => setIsOpen(true)}
@@ -132,10 +139,9 @@ setReq(newReq);
             Request Food
           </button>
 
-          {/* Modal */}
           {isOpen && (
             <dialog open className="modal">
-                 <div className="modal-box max-w-md">
+              <div className="modal-box max-w-md">
                 <h3 className="font-bold text-lg mb-4">Request This Food</h3>
                 <form onSubmit={handleSubmit} className="space-y-3">
                   <div>
@@ -171,7 +177,7 @@ setReq(newReq);
                       className="btn"
                       onClick={() => setIsOpen(false)}
                     >
-                      Cancel
+                      Close
                     </button>
                     <button type="submit" className="btn btn-primary">
                       Submit
@@ -179,62 +185,58 @@ setReq(newReq);
                   </div>
                 </form>
               </div>
-        
             </dialog>
           )}
         </div>
       </div>
 
-
-      {/* //requests table for foodss------------- */}
-
- <div className="mt-8">
-    <h2 className="text-xl font-bold mb-4">Food Requests</h2>
-    <table className="table-auto w-full border">
-      <thead>
-        <tr className="bg-gray-200">
-          <th className="px-4 py-2">Name</th>
-          <th className="px-4 py-2">Contact</th>
-          <th className="px-4 py-2">Location</th>
-          <th className="px-4 py-2">Reason</th>
-          <th className="px-4 py-2">Status</th>
-          <th className="px-4 py-2">Actions</th>
-        </tr>
-      </thead>
- <tbody>
-        {req.map(req => (
-          <tr key={req._id} className="border-t">
-            <td className="px-4 py-2">{req.
-req_name}</td>
-            <td className="px-4 py-2">{req.req_contact}</td>
-            <td className="px-4 py-2">{req.req_location}</td>
-            <td className="px-4 py-2">{req.req_reason}</td>
-            <td className="px-4 py-2">{req.food_status}</td>
-            <td className="px-4 py-2 flex gap-2">
-              {req.food_status === "Pending" && (
-                <>
-                  <button
-                    onClick={() => handleRequest(req._id, "Accepted")}
-                    className="btn btn-primary hover:bg-purple-400"
-                  >
-                    Accept
+      {
+        user.email=== food.donator_email &&(<div className="mt-8">
+        <h2 className="text-xl font-bold mb-4">Food Requests</h2>
+        <table className="table-auto w-full border">
+          <thead>
+            <tr className="bg-gray-200">
+              <th className="px-4 py-2">Name</th>
+              <th className="px-4 py-2">Contact</th>
+              <th className="px-4 py-2">Location</th>
+              <th className="px-4 py-2">Reason</th>
+              <th className="px-4 py-2">Status</th>
+              <th className="px-4 py-2">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {req.map((req) => (
+              <tr key={req._id} className="border-t">
+                <td className="px-4 py-2">{req.req_name}</td>
+                <td className="px-4 py-2">{req.req_contact}</td>
+                <td className="px-4 py-2">{req.req_location}</td>
+                <td className="px-4 py-2">{req.req_reason}</td>
+                <td className="px-4 py-2">{req.food_status}</td>
+                <td className="px-4 py-2 flex gap-2">
+                  {req.food_status === "Pending" && (
+                    <>
+                      <button
+                        onClick={() => handleRequest(req._id, "Accepted")}
+                        className="btn btn-primary hover:bg-purple-400"
+                      >
+                        {accept}
                       </button>
-                  <button
-                    onClick={() => handleRequest(req._id, "Rejected")}
-                    className="btn btn-primary hover:bg-purple-400"
-                  >
-                    Reject
-                  </button>
-                </>
-              )}
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
-
-
+                      <button
+                        onClick={() => handleRequest(req._id, "Rejected")}
+                        className="btn btn-primary hover:bg-purple-400"
+                      >
+                        Reject
+                      </button>
+                    </>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>)
+    
+      }
     </div>
   );
 };

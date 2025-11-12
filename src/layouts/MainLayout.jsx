@@ -9,10 +9,10 @@ import Motion from '../components/Motion';
 const MainLayout = () => {
     return (
         <div>
-           <Motion/>
+          
            <Navbar/>
            <Outlet/>
-         
+          <Motion/>
           <Footer2/>
            <ToastContainer/>
         </div>
