@@ -25,7 +25,7 @@ const AddFood = () => {
             donator_image:user.photoURL
         }
         console.log(formData)
-        fetch('http://localhost:3000/foods',{
+        fetch('https://green-plate-server.vercel.app/foods',{
             method:"POST",
             headers:{
                 "Content-Type": "application/json"

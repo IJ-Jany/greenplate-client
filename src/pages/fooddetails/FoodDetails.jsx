@@ -16,13 +16,13 @@ const FoodDetails = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res1 = await fetch(`http://localhost:3000/foods/${id}`);
+        const res1 = await fetch(`https://green-plate-server.vercel.app/foods/${id}`);
         const foodData = await res1.json();
         setFood(foodData.result);
 
         if (user.email === foodData.result?.donator_email) {
           const res2 = await fetch(
-            `http://localhost:3000/requests?food_id=${id}&&email=${user.email}`
+            `https://green-plate-server.vercel.app/requests?food_id=${id}&&email=${user.email}`
           );
           const reqData = await res2.json();
           setReq(reqData);
@@ -47,7 +47,7 @@ const FoodDetails = () => {
       food_id: food._id,
       food_status: "Pending",
     };
-    fetch("http://localhost:3000/requests", {
+    fetch("https://green-plate-server.vercel.app/requests", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -65,7 +65,7 @@ const FoodDetails = () => {
   };
 
   const handleRequest = (reqid, step) => {
-    fetch(`http://localhost:3000/requests/${reqid}`, {
+    fetch(`https://green-plate-server.vercel.app/requests/${reqid}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ food_status: step }),
@@ -79,7 +79,7 @@ const FoodDetails = () => {
         );
         setReq(newReq);
         if (step === "Accepted") {
-          fetch(`http://localhost:3000/foods/${food._id}/status`, {
+          fetch(`https://green-plate-server.vercel.app/foods/${food._id}/status`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ food_status: "Donated" }),

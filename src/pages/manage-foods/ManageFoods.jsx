@@ -11,7 +11,7 @@ const ManageFoods = () => {
      const [foods,setFoods] = useState(data)
      useEffect(()=>{
     if(user){
-      fetch(`http://localhost:3000/my-foods?email=${user.email}`)
+      fetch(`https://green-plate-server.vercel.app/my-foods?email=${user.email}`)
       .then(res=>res.json())
       .then(data=>setData(data))
     }
@@ -30,7 +30,7 @@ const ManageFoods = () => {
           confirmButtonText: "Yes, delete it!"
         }).then((result) => {
           if (result.isConfirmed) {
-              fetch(`http://localhost:3000/foods/${id}`,{
+              fetch(`https://green-plate-server.vercel.app/foods/${id}`,{
                     method:"DELETE",
                 })
                 .then(res=> res.json())

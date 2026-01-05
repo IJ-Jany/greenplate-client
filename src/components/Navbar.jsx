@@ -8,7 +8,7 @@ const Navbar = () => {
     return (
        
 
-<div className="navbar bg-base-100 shadow-sm">
+<div className="navbar bg-base-100 shadow-sm sticky top-0 z-50">
   <div className="navbar-start">
     <div className="dropdown">
       <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -19,6 +19,9 @@ const Navbar = () => {
         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
           <li className='hover:text-green-600'><Link className='activeClass' to='/'>Home</Link></li>
         <li className='hover:text-green-600'><Link className='activeClass' to='/available-foods'>Available Foods</Link></li>
+          <li className='hover:text-green-600'><Link className='activeClass' to='/about'>About</Link></li>
+          <li className='hover:text-green-600'><Link className='activeClass' to='/contact'>Contact</Link></li>
+           <li className='hover:text-green-600'><Link className='activeClass' to='/guidelines'>Guidelines</Link></li>
       </ul>
     </div>
     <a className="btn btn-ghost text-3xl font-bold text-green-700 hover:text-green-800 transition-all duration-300">
@@ -30,6 +33,9 @@ const Navbar = () => {
     <ul className="menu menu-horizontal px-1">
    <li className='hover:text-green-600'><Link className='activeClass' to='/'>Home</Link></li>
         <li className='hover:text-green-600'><Link className='activeClass' to='/available-foods'>Available Foods</Link></li>
+         <li className='hover:text-green-600'><Link className='activeClass' to='/about'>About</Link></li>
+         <li className='hover:text-green-600'><Link className='activeClass' to='/contact'>Contact</Link></li>
+          <li className='hover:text-green-600'><Link className='activeClass' to='/guidelines'>Guidelines</Link></li>
     </ul>
   </div>
   <div className="navbar-end">

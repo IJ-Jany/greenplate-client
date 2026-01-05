@@ -18,7 +18,7 @@ const UpdateFood = () => {
             expire_date:e.target.expireDate.value,
             additional_notes:e.target.notes.value,
         }
-        fetch(`http://localhost:3000/foods/${food._id}`,{
+        fetch(`https://green-plate-server.vercel.app/foods/${food._id}`,{
             method:"PUT",
             headers:{
                 "Content-Type": "application/json"

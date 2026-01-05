@@ -12,6 +12,9 @@ import UpdateFood from "../pages/updatefoods/UpdateFood";
 import PrivateRoute from "./PrivateRoute";
 import AvailableFoods from "../pages/available-foods/AvailableFoods";
 import Motion from "../components/Motion";
+import About from "../pages/about/About";
+import Contact from "../pages/contact/Contact";
+import Guidelines from "../pages/guidelines/Guidelines";
 
 
 export const router = createBrowserRouter([
@@ -22,12 +25,24 @@ export const router = createBrowserRouter([
     {
         path:'/',
         Component:Home,
-        loader:()=> fetch('http://localhost:3000/highest-foods')
+        loader:()=> fetch('https://green-plate-server.vercel.app/highest-foods')
     },
      {
         path:'/available-foods',
        element:<AvailableFoods></AvailableFoods>,
-        loader:()=> fetch('http://localhost:3000/foods')
+        loader:()=> fetch('https://green-plate-server.vercel.app/foods')
+    },
+     {
+        path:'/about',
+       element:<About/>
+    },
+     {
+        path:'/contact',
+       element:<Contact/>
+    },
+    {
+        path:'/guidelines',
+       element:<Guidelines/>
     },
     {
       path:'/add-food',
@@ -36,7 +51,7 @@ export const router = createBrowserRouter([
     {
       path:'/manage-foods',
       element:<PrivateRoute><ManageFoods></ManageFoods></PrivateRoute>,
-     // loader:()=> fetch('http://localhost:3000/my-foods')
+     // loader:()=> fetch('https://green-plate-server.vercel.app/my-foods')
     },
      {
       path:'/my-requests',
@@ -44,19 +59,19 @@ export const router = createBrowserRouter([
     },
      {
       path:'/food-details/:id',
-      element:<PrivateRoute><FoodDetails></FoodDetails></PrivateRoute>,
-      loader:({params})=> fetch(`http://localhost:3000/foods/${params.id}`)
+      element:<FoodDetails></FoodDetails>,
+      loader:({params})=> fetch(`https://green-plate-server.vercel.app/foods/${params.id}`)
     },
    
      {
       path:'/update-food/:id',
       element:<PrivateRoute><UpdateFood></UpdateFood></PrivateRoute>,
-      loader:({params})=> fetch(`http://localhost:3000/foods/${params.id}`)
+      loader:({params})=> fetch(`https://green-plate-server.vercel.app/foods/${params.id}`)
     },
    
      {
         Component:Motion,
-       loader:()=> fetch('http://localhost:3000/foods')
+       loader:()=> fetch('https://green-plate-server.vercel.app/foods')
     },
    
    ]
